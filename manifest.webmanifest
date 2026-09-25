@@ -1,0 +1,21 @@
+{
+  "name": "New Horizon Repair Services",
+  "short_name": "New Horizon",
+  "description": "Kitchen, bathroom and whole-home remodeling in Orange County, CA.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#091D37",
+  "theme_color": "#091D37",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
