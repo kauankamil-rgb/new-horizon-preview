@@ -265,3 +265,24 @@
   /* ---------- Contact page: show server-side error after non-JS redirect ---------- */
   if (/[?&]error=1/.test(location.search)) { var s = $('[data-form-status]'); if (s) { s.textContent = 'We could not send your request. Please check the form and try again, or call (949) 939-6445.'; s.className = 'form-status is-error'; } }
 })();
+
+/* ---------- GHL chat widget: keep the bubble above the fixed .mobile-cta bar on phones ----------
+   The widget renders inside a shadow root, so page CSS cannot reach it; we inject a <style> there. */
+(function () {
+  var CSS = '@media(max-width:899px){.nh-chat-lift{bottom:92px!important}}';
+  function lift(host) {
+    var sr = host.shadowRoot; if (!sr) return false;
+    if (!sr.querySelector('style[data-nh-chat-lift]')) { var st = document.createElement('style'); st.setAttribute('data-nh-chat-lift', ''); st.textContent = CSS; sr.appendChild(st); }
+    sr.querySelectorAll('*').forEach(function (el) {
+      if (el.classList.contains('nh-chat-lift') || el.tagName === 'STYLE') return;
+      var cs = getComputedStyle(el);
+      if (cs.position === 'fixed' && parseFloat(cs.bottom) < 48) el.classList.add('nh-chat-lift');
+    });
+    if (!sr.__nhObserved) { sr.__nhObserved = true; new MutationObserver(function () { lift(host); }).observe(sr, { childList: true, subtree: true }); }
+    return true;
+  }
+  var tries = 0, t = setInterval(function () {
+    var host = document.querySelector('chat-widget');
+    if ((host && lift(host)) || ++tries > 60) clearInterval(t);
+  }, 500);
+})();
