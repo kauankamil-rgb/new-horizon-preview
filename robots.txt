@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://get.newhorizonrepairservices.com/sitemap.xml
